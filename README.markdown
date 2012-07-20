@@ -11,10 +11,15 @@ the visual block itself.  This typically involves moving the cursor to the
 start of the block, and then using vim motions to move the cursor to the end of
 the block, and finally doing the appropriate operation.
 
-With a text object for columns, establishing the visual block is much easer,
+With a text object for columns, establishing the visual block is much easier,
 and even unecessary for certain operations.
 
-### Learn more in the include docs:
+### Usage
+
+This plugin adds `ic`, `ac`, `iC`, and `aC` as text-objects.  Use them in
+commands like `vic`, `cic`, and `daC`.
+
+### Learn more in the plugin doc:
 
 https://github.com/coderifous/textobj-word-column.vim/blob/master/doc/textobj-word-column.txt
 
