@@ -3,6 +3,8 @@
 The word-based column text-object makes operating on columns of code
 conceptually simpler and reduces keystrokes.
 
+![textobj-word-column][1]
+
 The common task of deleting, changing, or adding to a vertical column of code
 can be achieved using visual-blocks, however the first step is to establish
 the visual block itself.  This typically involves moving the cursor to the
@@ -15,3 +17,5 @@ and even unecessary for certain operations.
 ### Learn more in the include docs:
 
 https://github.com/coderifous/textobj-word-column.vim/blob/master/doc/textobj-word-column.txt
+
+[1]: http://i.imgur.com/AAgM9.gif
