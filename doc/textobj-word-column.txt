@@ -75,4 +75,26 @@ Git repository: https://github.com/coderifous/textobj-word-column.vim
 ===============================================================================
 CHANGELOG                                       *textobj-word-column-changelog*
 
-First Public Release: 2012/06/18
+2012/06/18: First Public Release.
+
+2012/06/23: Added smart-column-boundaries:
+
+  Smart boundaries do a better job of figuring out where the visual block
+  should start and stop for columns with variable length words, and are
+  smarter about when to do when whitespace is in the mix.
+
+  * Cursor position | vic Without Smart Boundaries | vic With Smart Boundaries
+  ------------------+------------------------------+---------------------------
+
+      ab*c   omg              |abc|    omg                |abc   | omg
+      abcdef omg              |abc|def omg                |abcdef| omg
+      abc    omg              |abc|    omg                |abc   | omg
+
+      abc *  omg              abc|    |omg                |abc   | omg
+      abcdef omg              abc|def |omg                |abcdef| omg
+      abc    omg              abc|    |omg                |abc   | omg
+
+      abc   *omg              abc|    |omg                abc   | |omg
+      abcdef omg              abc|def |omg                abcdef| |omg
+      abc    omg              abc|    |omg                abc   | |omg
+
