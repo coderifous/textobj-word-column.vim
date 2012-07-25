@@ -3,10 +3,10 @@ if (exists("g:loaded_textobj_word_column"))
 endif
 
 function! TextObjWordBasedColumn(textobj)
-  let cursor_col = col(".")
+  let cursor_col = virtcol(".")
   exec "silent normal! v" . a:textobj . "\<Esc>"
-  let start_col       = col("'<")
-  let stop_col        = col("'>")
+  let start_col       = virtcol("'<")
+  let stop_col        = virtcol("'>")
   let line_num        = line(".")
   let indent_level    = s:indent_levell(".")
   let start_line      = s:find_boundary_row(line_num, start_col, indent_level, -1)
@@ -19,7 +19,7 @@ function! TextObjWordBasedColumn(textobj)
     let col_bounds = s:find_smart_boundary_cols(start_line, stop_line, cursor_col, a:textobj, whitespace_only)
   endif
 
-  exec "keepjumps silent normal!" . start_line . "gg" . col_bounds[0] . "|" stop_line . "gg" . col_bounds[1] . "|"
+  exec "keepjumps silent normal!" . start_line . "gg" . col_bounds[0] . "|" . stop_line . "gg" . col_bounds[1] . "|"
 endfunction
 
 function! s:find_smart_boundary_cols(start_line, stop_line, cursor_col, textobj, whitespace_only)
@@ -35,8 +35,8 @@ function! s:find_smart_boundary_cols(start_line, stop_line, cursor_col, textobj,
 
   while index <= a:stop_line
     exec "keepjumps silent normal!" index . "gg" . a:cursor_col . "|" . word_start . "v" . a:textobj . "\<Esc>"
-    let start_col  = col("'<")
-    let stop_col   = col("'>")
+    let start_col  = virtcol("'<")
+    let stop_col   = virtcol("'>")
     let col_bounds = s:col_bounds_fn(start_col, stop_col, col_bounds)
     let index      = index + 1
   endwhile
@@ -72,8 +72,10 @@ endfunction
 
 function! s:whitespace_column_wanted(start_line, stop_line, cursor_col)
   let index = a:start_line
+  let expanded_tabs = repeat(" ", &tabstop)
   while index <= a:stop_line
-    let char = getline(index)[a:cursor_col - 1]
+    let line = substitute(getline(index), "\t", expanded_tabs, "g")
+    let char = line[a:cursor_col - 1]
     if char != " " && char != "\t"
       return 0
     end
