@@ -8,7 +8,7 @@ function! TextObjWordBasedColumn(textobj)
   let start_col       = virtcol("'<")
   let stop_col        = virtcol("'>")
   let line_num        = line(".")
-  let indent_level    = s:indent_levell(".")
+  let indent_level    = s:indent_level(".")
   let start_line      = s:find_boundary_row(line_num, start_col, indent_level, -1)
   let stop_line       = s:find_boundary_row(line_num, start_col, indent_level, 1)
   let whitespace_only = s:whitespace_column_wanted(start_line, stop_line, cursor_col)
@@ -84,18 +84,27 @@ function! s:whitespace_column_wanted(start_line, stop_line, cursor_col)
   return 1
 endfunction
 
-function! s:find_boundary_row(line_num, start_col, indent_level, step)
-  let non_blank      = getline(a:line_num + a:step) =~ "[^ \t]"
-  let same_indent    = s:indent_levell(a:line_num + a:step) == a:indent_level
-  let is_not_comment = ! s:is_comment(a:line_num + a:step, a:start_col)
-  if same_indent && non_blank && is_not_comment
-    return s:find_boundary_row(a:line_num + a:step, a:start_col, a:indent_level, a:step)
-  else
-    return a:line_num
+function! s:find_boundary_row(start_line, start_col, indent_level, step)
+  let current_line = a:start_line
+  let max_boundary = 0
+  if a:step == 1
+    let max_boundary = line("$")
   endif
+  while current_line != max_boundary
+    let next_line      = current_line + a:step
+    let non_blank      = getline(next_line) =~ "[^ \t]"
+    let same_indent    = s:indent_level(next_line) == a:indent_level
+    let is_not_comment = ! s:is_comment(next_line, a:start_col)
+    if same_indent && non_blank && is_not_comment
+      let current_line = next_line
+    else
+      return current_line
+    endif
+  endwhile
+  return max_boundary
 endfunction
 
-function! s:indent_levell(line_num)
+function! s:indent_level(line_num)
   let line = getline(a:line_num)
   return match(line, "[^ \t]")
 endfunction

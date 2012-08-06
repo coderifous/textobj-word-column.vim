@@ -98,3 +98,4 @@ CHANGELOG                                       *textobj-word-column-changelog*
       abcdef omg              abc|def |omg                abcdef| |omg
       abc    omg              abc|    |omg                abc   | |omg
 
+2012/08/05: Bug fix: Switched recursive function with iteration.
