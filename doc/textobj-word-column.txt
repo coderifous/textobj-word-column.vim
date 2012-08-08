@@ -83,6 +83,7 @@ CHANGELOG                                       *textobj-word-column-changelog*
   should start and stop for columns with variable length words, and are
   smarter about when to do when whitespace is in the mix.
 
+>
   * Cursor position | vic Without Smart Boundaries | vic With Smart Boundaries
   ------------------+------------------------------+---------------------------
 
@@ -97,5 +98,6 @@ CHANGELOG                                       *textobj-word-column-changelog*
       abc   *omg              abc|    |omg                abc   | |omg
       abcdef omg              abc|def |omg                abcdef| |omg
       abc    omg              abc|    |omg                abc   | |omg
+<
 
 2012/08/05: Bug fix: Switched recursive function with iteration.
