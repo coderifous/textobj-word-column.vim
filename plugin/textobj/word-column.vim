@@ -114,14 +114,14 @@ function! s:is_comment(line_num, column)
 endfunction
 
 if (!exists("g:skip_default_textobj_word_column_mappings"))
-  nnoremap <silent> vac :call TextObjWordBasedColumn("aw")<cr>
-  nnoremap <silent> vaC :call TextObjWordBasedColumn("aW")<cr>
-  nnoremap <silent> vic :call TextObjWordBasedColumn("iw")<cr>
-  nnoremap <silent> viC :call TextObjWordBasedColumn("iW")<cr>
-  onoremap <silent> ac  :call TextObjWordBasedColumn("aw")<cr>
-  onoremap <silent> aC  :call TextObjWordBasedColumn("aW")<cr>
-  onoremap <silent> ic  :call TextObjWordBasedColumn("iw")<cr>
-  onoremap <silent> iC  :call TextObjWordBasedColumn("iW")<cr>
+  xnoremap <silent> ac :<C-u>call TextObjWordBasedColumn("aw")<cr>
+  xnoremap <silent> aC :<C-u>call TextObjWordBasedColumn("aW")<cr>
+  xnoremap <silent> ic :<C-u>call TextObjWordBasedColumn("iw")<cr>
+  xnoremap <silent> iC :<C-u>call TextObjWordBasedColumn("iW")<cr>
+  onoremap <silent> ac :call TextObjWordBasedColumn("aw")<cr>
+  onoremap <silent> aC :call TextObjWordBasedColumn("aW")<cr>
+  onoremap <silent> ic :call TextObjWordBasedColumn("iw")<cr>
+  onoremap <silent> iC :call TextObjWordBasedColumn("iW")<cr>
 endif
 
 let g:loaded_textobj_word_column = 1
